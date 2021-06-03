@@ -2,8 +2,8 @@ const path = require('path');
 const express = require('express');
 
 const app = express();
-const port = 80;
-const hostname = '0.0.0.0';
+const port = process.env.PORT || 8080;
+const hostname = process.env.HOSTNAME || '127.0.0.1';
 
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, '/index.html'));
