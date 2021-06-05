@@ -1,5 +1,6 @@
 const path = require('path');
 const auth = require('./auth');
+const _ = require('lodash');
 
 module.exports = {
     showHtml,
@@ -56,9 +57,9 @@ function logout(req, res) {
 
 function message(req, res) {
     const data = req.body;
-    if (data) {
-        res.json({'received': data});
+    if (_.isEmpty({})) {
+        res.status(400).json({'error': 'Did not get any message!'}) 
     } else {
-        res.status(400).json({'error': 'Did not get any message!'})
+        res.json({'received': data});
     }
 }
