@@ -57,7 +57,7 @@ function logout(req, res) {
 
 function message(req, res) {
     const data = req.body;
-    if (_.isEmpty({})) {
+    if (_.isEmpty(data)) {
         res.status(400).json({'error': 'Did not get any message!'}) 
     } else {
         res.json({'received': data});
