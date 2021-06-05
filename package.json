@@ -18,7 +18,9 @@
   },
   "homepage": "https://github.com/NullSec-SIG/web-practice#readme",
   "dependencies": {
+    "cookie-parser": "^1.4.5",
     "express": "^4.17.1",
+    "jsonwebtoken": "^8.5.1",
     "pm2": "^4.5.6"
   }
 }
