@@ -8,11 +8,17 @@ const app = express();
 const port = process.env.PORT || 8080;
 const hostname = process.env.HOSTNAME || '127.0.0.1';
 
+app.disable('etag');
+
 app.use(express.urlencoded());
 app.use(express.json());
 app.use(cookierParser('abcdef-12345'))
 app.use(express.static(path.join(__dirname, '/public')));
 
+app.get('/*', function(req, res, next){ 
+    res.setHeader('Last-Modified', (new Date()).toUTCString());
+    next(); 
+});
 app.get('/', api.showHtml('public/index.html'));
 app.get('/hello', api.helloWorld);
 app.get('/register', api.showHtml('public/register.html'));

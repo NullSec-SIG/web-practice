@@ -21,6 +21,7 @@ function authenticateToken(req, res, next) {
     }
     jwt.verify(token, secret, (err, user) => {
         if (err) {
+            removeToken(req, res);
             return res.sendStatus(403);
         }
         req.user = user;
@@ -34,6 +35,7 @@ function validateToken(req, res, next) {
         jwt.verify(token, secret, (err, user) => {
             console.log(err, user);
             if (err) {
+                removeToken(req, res);
                 req.tokenStatus = false;
             }
             req.tokenStatus = true;
