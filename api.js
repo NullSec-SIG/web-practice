@@ -6,7 +6,8 @@ module.exports = {
     helloWorld,
     checkLoggedIn,
     login,
-    logout
+    logout,
+    message
 }
 
 function showHtml(htmlFile) {
@@ -36,7 +37,6 @@ function login(req, res) {
     if (!username || !password) {
         res.status(400);
     }
-    console.log(username)
     const token = auth.generateAccessToken(username);
     res.writeHead(302, {
         'Set-Cookie': `token=${token}; HttpOnly`,
@@ -52,4 +52,13 @@ function logout(req, res) {
         'Location': '/login'
     })
     .send();
+}
+
+function message(req, res) {
+    const data = req.body;
+    if (data) {
+        resizeBy.json({'received': msg});
+    } else {
+        res.status(400).json({'error': 'Did not get any message!'})
+    }
 }
