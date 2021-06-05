@@ -16,9 +16,10 @@ app.use(express.static(path.join(__dirname, '/public')));
 app.get('/', api.showHtml('public/index.html'));
 app.get('/hello', api.helloWorld);
 app.get('/register', api.showHtml('public/register.html'));
-app.get('/login', api.showHtml('public/login.html'));
+app.get('/login', auth.validateToken, api.checkLoggedIn, api.showHtml('public/login.html'));
 app.post('/login', api.login);
 app.get('/success', auth.authenticateToken,api.showHtml('public/success.html'));
+app.post('/logout', api.logout);
 app.get('/secret', auth.authenticateToken, api.showHtml('public/secret.html'));
 
 app.listen(port, hostname, () => console.log(`Server started at http://${hostname}:${port}/`));

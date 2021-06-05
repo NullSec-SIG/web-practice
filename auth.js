@@ -3,6 +3,8 @@ const jwt = require('jsonwebtoken');
 module.exports = {
     generateAccessToken,
     authenticateToken,
+    validateToken,
+    removeToken,
     cookieExtractor
 }
 
@@ -18,12 +20,35 @@ function authenticateToken(req, res, next) {
         return res.sendStatus(401);
     }
     jwt.verify(token, secret, (err, user) => {
-      if (err) {
-          return res.sendStatus(403);
-      }
-      req.user = user;
-      next();
+        if (err) {
+            return res.sendStatus(403);
+        }
+        req.user = user;
+        next();
     })
+}
+
+function validateToken(req, res, next) {
+    const token = cookieExtractor(req);
+    if (token) {
+        jwt.verify(token, secret, (err, user) => {
+            console.log(err, user);
+            if (err) {
+                req.tokenStatus = false;
+            }
+            req.tokenStatus = true;
+            next();
+        });
+    } else {
+        req.tokenStatus = false;
+        next();
+    }
+}
+
+function removeToken(req) {
+    if (req && req.cookies) {
+        res.clearCookie('token');
+    }
 }
 
 function cookieExtractor(req) {
