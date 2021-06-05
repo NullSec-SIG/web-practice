@@ -27,6 +27,6 @@ app.post('/login', api.login);
 app.get('/success', auth.authenticateToken,api.showHtml('public/success.html'));
 app.post('/logout', api.logout);
 app.get('/secret', auth.authenticateToken, api.showHtml('public/secret.html'));
-app.post('/message', )
+app.post('/message', api.message)
 
 app.listen(port, hostname, () => console.log(`Server started at http://${hostname}:${port}/`));
