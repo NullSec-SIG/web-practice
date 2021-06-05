@@ -45,7 +45,7 @@ function validateToken(req, res, next) {
     }
 }
 
-function removeToken(req) {
+function removeToken(req, res) {
     if (req && req.cookies) {
         res.clearCookie('token');
     }

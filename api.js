@@ -47,7 +47,7 @@ function login(req, res) {
 }
 
 function logout(req, res) {
-    auth.removeToken(req);
+    auth.removeToken(req, res);
     res.writeHead(302, {
         'Location': '/login'
     })
